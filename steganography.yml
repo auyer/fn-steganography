@@ -1,9 +1,9 @@
 provider:
   name: faas
-  gateway: https://10.30.0.94:8080
+  gateway: http://localhost:8080
 
 functions:
-  linker:
+  steganography:
     lang: go
     handler: ./steganography
-    image: fn-steganography:latest
+    image: auyer/fn-steganography:latest
