@@ -62,7 +62,7 @@ ____
 
 ### Encode and Call function with curl:
 ```bash
-(echo -n '{"encode: true, "message": "hello stego","image": "'; base64 ~/path_to_pic.png; echo '"}') |
+(echo -n '{"encode": true, "message": "hello stego","image": "'; base64 ~/path_to_pic.png; echo '"}') |
 curl -H "Content-Type: application/json" -d @-  http://127.0.0.1:8080/function/steganography
 ```
 
