@@ -15,7 +15,6 @@ Run LSB steganography enconding/decoding on OpenFaaS!
 
 The second image contains the first paragaph of the description of a stegosaurus on [Wikipidia](https://en.wikipedia.org/wiki/Stegosaurus), also available in [examples/message.txt](https://raw.githubusercontent.com/auyer/steganography/master/examples/message.txt) as an example.
 
-
 ## How to use it
 
 This function recieves a JSON with 3 fields:
