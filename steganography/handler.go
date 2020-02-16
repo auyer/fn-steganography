@@ -54,9 +54,9 @@ func Handle(req []byte) string {
 		log.Println(fmt.Sprintf("error: bad body. %s ", err.Error()))
 		return fmt.Sprintf(`{"error": "bad body. %s"}`, err.Error())
 	}
-	fmt.Println(strings.TrimSpace(data.Image))
-	if urlRegEx.Match([]byte(strings.TrimSpace(data.Image))) {
-		data.Image, err = getImage(strings.TrimSpace(data.Image))
+	data.Image = strings.TrimSpace(data.Image)
+	if urlRegEx.Match([]byte(data.Image)) {
+		data.Image, err = getImage(data.Image)
 		if err != nil {
 			return data.Image
 		}

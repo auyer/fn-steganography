@@ -1,0 +1,2 @@
+# github.com/auyer/steganography v1.0.0
+github.com/auyer/steganography
