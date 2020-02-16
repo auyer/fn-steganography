@@ -18,7 +18,7 @@ The second image contains the first paragaph of the description of a stegosaurus
 ## How to use it
 
 This function recieves a JSON with 3 fields:
-- An image encoded in base 64;
+- An image encoded in base 64 or a URL poiting to it;
 - Boolean argument indicating encoding/decoding mode;
 - A message (in case of encoding).
 
@@ -55,10 +55,19 @@ Will produce as a result:
 hello stego
 ```
 ____
-
+### Example With URL:
+Note that this image is large, and if invoking from the UI, there will be a lot of text in the output.
+```json
+{	
+    "message" : "hello stego" ,
+    "image" : "https://github.com/auyer/steganography/raw/master/examples/stegosaurus.png",
+    "encode" : true
+}
+``` 
+____
 ### Encode and Call function with curl:
 ```bash
-(echo -n '{"encode": true, "message": "hello stego","image": "'; base64 ~/path_to_pic.png; echo '"}') |
+(echo -n '{"encode": true, "message": "hello stego","image": "'; base64 ~/path_to_pic.format; echo '"}') |
 curl -H "Content-Type: application/json" -d @-  http://127.0.0.1:8080/function/steganography
 ```
 

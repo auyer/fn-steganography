@@ -38,6 +38,32 @@ func TestEncodeDecodeBase64(t *testing.T) {
 	}
 }
 
+func TestEncodeDecodeBase64WithMeta(t *testing.T) {
+	message := "hello stego"
+	body := []byte(fmt.Sprintf(`
+	{	
+		"message" : "%s" ,
+		"image" : "%s",
+		"encode" : true
+	}`, message, "data:image/png;base64,"+testBase64Image))
+
+	encodedImageData := Handle(body)
+	encodedImageData = strings.TrimPrefix(encodedImageData, "data:image/png;base64,")
+
+	body = []byte(fmt.Sprintf(`
+	{	
+		"image" : "%s",
+		"encode" : false
+	}`, encodedImageData))
+
+	response := Handle(body)
+
+	if string(response) != message {
+		log.Println("messages do no match")
+		t.FailNow()
+	}
+}
+
 func TestEncodeDecodeURL(t *testing.T) {
 	message := "hello stego"
 	body := []byte(fmt.Sprintf(`
@@ -133,7 +159,7 @@ func TestBadImageField(t *testing.T) {
 
 	response := Handle(body)
 	fmt.Println(response)
-	if response != `{"error": "image field didnt match a URL or base64 image"}` {
+	if response != `{"error": "failed to decode base64 image"}` {
 		log.Println("error not caught: no match")
 		t.FailNow()
 	}

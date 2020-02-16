@@ -6,6 +6,10 @@ import (
 	"encoding/json"
 	"fmt"
 	"image"
+
+	// image/x packages allow decoding format x
+	_ "image/jpeg"
+	_ "image/png"
 	"io/ioutil"
 	"log"
 	"net/http"
@@ -16,7 +20,6 @@ import (
 )
 
 var urlRegEx, _ = regexp.Compile(`\b((http|https):\/\/?)[^\s()<>]+(?:\([\w\d]+\)|([^[:punct:]\s]|\/?))`)
-var b64RegEx, _ = regexp.Compile(`^(?:[A-Za-z0-9+/]{4})*(?:[A-Za-z0-9+/]{2}==|[A-Za-z0-9+/]{3}=)?$`)
 
 // requestData structure holds the Input Data.
 /*
@@ -40,7 +43,6 @@ func getImage(inputURL string) (string, error) {
 	if err != nil {
 		return fmt.Sprintf(`{"error" : "Unable to read response body: %s"}`, err), err
 	}
-	// fmt.Println(string(data))
 	return string(data), nil
 }
 
@@ -62,12 +64,15 @@ func Handle(req []byte) string {
 		}
 		return encodeDecode(data)
 	}
-	if b64RegEx.Match([]byte(data.Image)) {
-		decodedImg, _ := base64.StdEncoding.DecodeString(data.Image) // no need for error handling since passed regex check
-		data.Image = string(decodedImg)
-		return encodeDecode(data)
+	data.Image = strings.TrimPrefix(data.Image, "data:image/png;base64,")
+	data.Image = strings.TrimPrefix(data.Image, "data:image/jpeg;base64,")
+	data.Image = strings.TrimPrefix(data.Image, "data:image/jpg;base64,")
+	decodedImg, err := base64.StdEncoding.DecodeString(data.Image)
+	if err != nil {
+		return `{"error": "failed to decode base64 image"}`
 	}
-	return `{"error": "image field didnt match a URL or base64 image"}`
+	data.Image = string(decodedImg)
+	return encodeDecode(data)
 }
 
 func encodeDecode(data requestData) string {
