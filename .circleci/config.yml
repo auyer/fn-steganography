@@ -5,25 +5,25 @@ version: 2.1
 orbs:
   codecov: codecov/codecov@1.0.4
 jobs:
-  test:
+  build:
     docker:
       - image: circleci/golang:latest
-    working_directory: /app
+    working_directory: ~/app
     steps:
       - checkout
-      - run: go test -v ./... -coverprofile=coverage.txt -covermode=atomic
+      - run: cd steganography && go test -v ./... -coverprofile=coverage.txt -covermode=atomic
       - codecov/upload:
-        file: coverage.txt
+        file: steganography/coverage.txt
   test113:
     docker:
       - image: circleci/golang:1.13
-    working_directory: /app
+    working_directory: ~/app
     steps:
       - checkout
-      - run: go test -v ./...
+      - run: cd steganography && go test -v ./...
 workflows:
   version: 2
-  build_and_test:
+  test:
     jobs:
       - build
       - test113
