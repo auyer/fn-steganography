@@ -1,2 +1,3 @@
-# github.com/auyer/steganography v1.0.0
+# github.com/auyer/steganography v1.0.2
+## explicit; go 1.12
 github.com/auyer/steganography
