@@ -11,9 +11,9 @@ Run LSB steganography enconding/decoding on OpenFaaS!
 
 | Original              | Encoded           |
 | --------------------  | ------------------|
-| <img src="https://github.com/auyer/steganography/raw/master/examples/stegosaurus.png"/>        | <img src="https://github.com/auyer/steganography/raw/master/examples/encoded_stegosaurus.png"/>
+| <img src="https://github.com/auyer/steganography/raw/main/examples/stegosaurus.jpg"/>        | <img src="https://github.com/auyer/steganography/raw/main/examples/encoded_stegosaurus.png"/>
 
-The second image contains the first paragaph of the description of a stegosaurus on [Wikipidia](https://en.wikipedia.org/wiki/Stegosaurus), also available in [examples/message.txt](https://raw.githubusercontent.com/auyer/steganography/master/examples/message.txt) as an example.
+The second image contains the first paragaph of the description of a stegosaurus on [Wikipidia](https://en.wikipedia.org/wiki/Stegosaurus), also available in [examples/message.txt](https://raw.githubusercontent.com/auyer/steganography/main/examples/message.txt) as an example.
 
 ## How to use it
 
@@ -60,7 +60,7 @@ Note that this image is large, and if invoking from the UI, there will be a lot 
 ```json
 {	
     "message" : "hello stego" ,
-    "image" : "https://github.com/auyer/steganography/raw/master/examples/stegosaurus.png",
+    "image" : "https://github.com/auyer/steganography/raw/main/examples/stegosaurus.png",
     "encode" : true
 }
 ``` 
